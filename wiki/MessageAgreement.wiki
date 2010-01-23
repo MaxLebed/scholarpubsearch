@@ -14,7 +14,7 @@
 ==Запрос на дополнительные атрибуты==
 Перформатив ACLMessage.REQUEST
 
-[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
 
 [http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/REQUESTexample.xml пример xml-контента]
 
@@ -24,7 +24,7 @@
 ==Запрос на дополнительные атрибуты==
 Перформатив ACLMessage.REQUEST
 
-[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
 
 [http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/REQUESTexample.xml пример xml-контента для запроса bibtex-записей для нескольких статей]
 
@@ -33,7 +33,7 @@
 ==Ответ поисковика==
 Перформатив ACLMessage.PROPOSE
 
-[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/propose.xsd xsd-схема]
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/propose.xsd xsd-схема]
 
 [http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/PROPOSEexample.xml пример xml-контента]
 
