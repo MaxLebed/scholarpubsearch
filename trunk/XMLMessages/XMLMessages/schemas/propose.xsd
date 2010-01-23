@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/propose/" targetNamespace="http://www.example.org/propose/" xmlns:Q1="http://www.example.org/request/">
+    <import schemaLocation="request.xsd" namespace="http://www.example.org/request/"></import>
+    <element name="publications">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="Q1:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+</schema>
