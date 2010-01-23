@@ -6,7 +6,7 @@
 //
 
 
-package XMLMessages.cfp;
+package cfp;
 
 import java.util.ArrayList;
 import java.util.List;
