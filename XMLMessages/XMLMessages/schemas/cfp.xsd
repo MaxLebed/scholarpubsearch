@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/cfp/" targetNamespace="http://www.example.org/cfp/">
+    <element name="request">
+    	<complexType>
+    		<sequence>
+    			<element name="request" type="tns:PublicationRequest" maxOccurs="1" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <complexType name="PublicationRequest">
+    	<sequence>
+    		<element name="keyword" type="string" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="author" type="string" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="subjectArea" type="string" maxOccurs="1" minOccurs="0"></element>
+    		<element name="fromYear" type="int" maxOccurs="1" minOccurs="0"></element>
+    		<element name="toYear" type="int" maxOccurs="1" minOccurs="0"></element>
+
+    		<element name="journal" type="string" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+</schema>

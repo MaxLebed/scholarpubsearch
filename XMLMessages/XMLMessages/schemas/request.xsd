@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/request/" targetNamespace="http://www.example.org/request/">
+
+    <complexType name="Publication">
+    	<sequence>
+    		<element name="title" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="author" type="string" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="year" type="int" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="journal" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="summary" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="pdfLink" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="bibtex" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="subjectArea" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="pagesCount" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+            <element name="keyword" type="string" maxOccurs="unbounded" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+
+    
+
+    <element name="journal">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication"
+    				maxOccurs="unbounded" minOccurs="1">
+    			</element>
+    		</sequence>
+    	</complexType>
+    </element>
+    
+    <element name="summary">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+    
+    <element name="pdf">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="bibtex">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="subject">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="pages">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="keywords">
+    	<complexType>
+    		<sequence>
+    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+</schema>
