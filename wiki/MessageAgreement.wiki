@@ -1,0 +1,40 @@
+#summary Соглашение о формате сообщений
+#labels message
+
+=Взаимодействие в поисковыми агентами=
+==Запрос на поиск статей==
+Перформатив ACLMessage.CFP
+
+[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/cfp.xsd xsd-схема]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/CFPexample.xml пример xml-контента]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/cfp классы для работы]
+
+==Запрос на дополнительные атрибуты==
+Перформатив ACLMessage.REQUEST
+
+[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/REQUESTexample.xml пример xml-контента]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/request классы для работы]
+
+
+==Запрос на дополнительные атрибуты==
+Перформатив ACLMessage.REQUEST
+
+[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/request.xsd xsd-схема]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/REQUESTexample.xml пример xml-контента для запроса bibtex-записей для нескольких статей]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/request классы для работы]
+
+==Ответ поисковика==
+Перформатив ACLMessage.PROPOSE
+
+[http//code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/schemas/propose.xsd xsd-схема]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/examples/PROPOSEexample.xml пример xml-контента]
+
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/propose классы для работы]
