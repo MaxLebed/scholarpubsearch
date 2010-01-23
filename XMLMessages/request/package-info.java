@@ -5,5 +5,5 @@
 // Generated on: 2010.01.24 at 01:33:25 AM MSK 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/propose/")
-package XMLMessages.propose;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.example.org/request/")
+package request;

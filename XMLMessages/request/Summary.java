@@ -6,7 +6,7 @@
 //
 
 
-package XMLMessages.request;
+package request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "publication"
 })
-@XmlRootElement(name = "journal")
-public class Journal {
+@XmlRootElement(name = "summary")
+public class Summary {
 
     @XmlElement(required = true)
     protected List<Publication> publication;
