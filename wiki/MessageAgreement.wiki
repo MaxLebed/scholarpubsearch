@@ -21,6 +21,8 @@
 
 [http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/request классы для работы]
 
+[http://code.google.com/p/scholarpubsearch/source/browse/trunk/XMLMessages/request/AllowedAtribute.java Список поддерживаемых дополнительных атрибутов]
+
 ==Ответ поисковика==
 Перформатив ACLMessage.PROPOSE
 
