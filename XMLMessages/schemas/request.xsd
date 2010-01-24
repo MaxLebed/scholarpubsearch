@@ -37,62 +37,34 @@
 
     
 
-    <element name="journal">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication"
-    				maxOccurs="unbounded" minOccurs="1">
-    			</element>
-    		</sequence>
-    	</complexType>
-    </element>
     
-    <element name="summary">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType>
-    </element>
     
-    <element name="pdf">
+
+
+
+
+
+
+    <simpleType name="AllowedAtribute">
+    	<restriction base="string">
+    		<enumeration value="JOURNAL"></enumeration>
+    		<enumeration value="SUMMARY"></enumeration>
+    		<enumeration value="PDF"></enumeration>
+    		<enumeration value="BIBTEX"></enumeration>
+    		<enumeration value="SUBJECT"></enumeration>
+    		<enumeration value="PAGES"></enumeration>
+    		<enumeration value="KEYWORDS"></enumeration>
+    	</restriction>
+    </simpleType>
+
+
+
+    <element name="specifyingPublication">
     	<complexType>
     		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
+    			<element name="atribute" type="tns:AllowedAtribute"></element>
+    			<element name="publications" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
     		</sequence>
     	</complexType>
     </element>
-
-    <element name="bibtex">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType>
-    </element>
-
-    <element name="subject">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType>
-    </element>
-
-    <element name="pages">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType>
-    </element>
-
-    <element name="keywords">
-    	<complexType>
-    		<sequence>
-    			<element name="publication" type="tns:Publication" maxOccurs="unbounded" minOccurs="1"></element>
-    		</sequence>
-    	</complexType>
-    </element>
-
 </schema>
