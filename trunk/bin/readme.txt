@@ -1,0 +1,1 @@
+java -jar "scholarPubSearch.jar" <config xml file>
