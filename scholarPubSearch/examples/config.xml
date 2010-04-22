@@ -1,0 +1,6 @@
+<system>
+<input name = "userInputAgent" file = "examples\userpref.xml" agent = "preferenceAgent"/>
+<classifier name = "classifierAgent"/>
+<arxiv name = "arxivOrgAgent"/>
+<google name = "googleScholarAgent"/>
+</system>
