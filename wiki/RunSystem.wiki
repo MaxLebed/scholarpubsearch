@@ -1,7 +1,10 @@
+#summary Запуск системы
+
 = Запуск системы =
 
 java –jar "scholarPubSearch.jar" <config xml file>
-<config xml file> - XML-файл, описывающий конфигурацию системы
+<config xml file> - XML-файл, описывающий конфигурацию системы. Если файл не задан, система пытается взять его из папки ..\examples\userpref.xml
+
 Пример такого файла
 {{{
 <system>
@@ -17,6 +20,7 @@ java –jar "scholarPubSearch.jar" <config xml file>
 
 Атрибут input.file задает имя файла, в котором система хранит предпочтения пользователя
 Атрибут input.agent – Агента, работающего с предпочтениями.  Этот агент создается автоматически при поиске.
+
 Необходимые библиотеки:
    # appframework-1.0.3.jar
    # swing-worker-1.1.jar
