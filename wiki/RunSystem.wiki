@@ -3,7 +3,7 @@
 = Запуск системы =
 
 java –jar "scholarPubSearch.jar" <config xml file>
-<config xml file> - XML-файл, описывающий конфигурацию системы. Если файл не задан, система пытается взять его из папки ..\examples\userpref.xml
+<config xml file> - XML-файл, описывающий конфигурацию системы. Если файл не задан, система пытается взять его из папки ..\examples\config.xml
 
 Пример такого файла
 {{{
