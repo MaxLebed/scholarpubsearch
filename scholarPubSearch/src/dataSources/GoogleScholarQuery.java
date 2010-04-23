@@ -50,6 +50,12 @@ public class GoogleScholarQuery {
                 href += "+" + normalize(keyword,'+');
             }
         }
+       keywords = request.getAbstractKeywordList();
+       if(keywords != null) {
+            for(String keyword : keywords.getAttribute()) {
+                href += "+" + normalize(keyword,'+');
+            }
+        }
     }
 
     private void addAuthors() {
@@ -102,7 +108,7 @@ public class GoogleScholarQuery {
         char [] strToChar = str.toCharArray();
         for(int i = 0; i < strToChar.length; i++) {
             char c = strToChar[i];
-            if(Character.isSpaceChar(c))
+            if(!Character.isLetterOrDigit(c))
                 strToChar[i] = replacement;
         }
         return String.valueOf(strToChar);
