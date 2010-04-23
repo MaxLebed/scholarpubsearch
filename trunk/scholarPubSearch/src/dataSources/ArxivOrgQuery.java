@@ -65,7 +65,7 @@ public class ArxivOrgQuery {
         if(authors != null) {
             for(String authorName : authors.getAttribute()) {
                 addAnd();
-                href += "au:" + GoogleScholarQuery.normalize(authorName,'_');
+                href += "au:" + GoogleScholarQuery.normalize(authorName,'+');
             }
         }
     }
@@ -74,7 +74,7 @@ public class ArxivOrgQuery {
         if(keywords != null) {
             for(String keyword : keywords.getAttribute()) {
                 addAnd();
-                href += prefix + GoogleScholarQuery.normalize(keyword,'_');
+                href += prefix + GoogleScholarQuery.normalize(keyword,'+');
             }
         }
     }
@@ -83,7 +83,7 @@ public class ArxivOrgQuery {
         String journalName = request.getJournalName();
         if(journalName != null) {
             addAnd();
-            href += "jr:" + GoogleScholarQuery.normalize(journalName,'_');
+            href += "jr:" + GoogleScholarQuery.normalize(journalName,'+');
         }
     }
 

@@ -2,10 +2,6 @@ package dataSources;
 
 import messages.CfpQuery;
 import messages.Propose;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import atom.FeedType;
 
 public class ArxivOrgAgent extends DataSourceAgent {
