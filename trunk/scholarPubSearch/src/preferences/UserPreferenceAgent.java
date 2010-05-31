@@ -51,6 +51,7 @@ public class UserPreferenceAgent extends Agent {
     protected void takeDown() {
         System.out.println(SERVICE_NAME + "Agent " + getAID().getName() +
                 " is terminating.");
+        Util.DFDeregister(this);
     }
 
     protected void resetTask() {
@@ -119,7 +120,6 @@ public class UserPreferenceAgent extends Agent {
                         CfpQuery cfpQuery = CFP.unmarshal(msgContent);
                         resultsCount =  cfpQuery.getResultsNumber();
                         preference.change(cfpQuery);
-                        preference.supplementCFP(cfpQuery);
                         CFP cfp = new CFP();
                         cfp.setCFPQuery(cfpQuery);
                         classifierMsg.setContent(cfp.marshal());

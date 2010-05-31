@@ -22,17 +22,16 @@ import messages.Propose;
 import scholarpubsearch.UserInputAgent;
 
 /**
- *
- * @author Aleksandr Dzyuba
+    Abstract data source agent
  */
 public abstract class DataSourceAgent extends Agent{
     private AID classifierAgent;
 
     public abstract String getServiceName();
-    public abstract Propose RequestDataSource(CfpQuery cfp);
+    public abstract Propose requestDataSource(CfpQuery cfp);
     public abstract String getDefaultHref();
 
-     @Override
+    @Override
     protected void setup() {
             Util.DFRegister(this, getServiceName());
             System.out.println(getServiceName() + "Agent "
@@ -45,12 +44,14 @@ public abstract class DataSourceAgent extends Agent{
     protected void takeDown() {
         System.out.println(getServiceName() + "Agent "
                 + getAID().getName() + " is terminating.");
+        Util.DFDeregister(this);
     }
 
     private void resetTask() {
         classifierAgent = null;
     }
 
+    //true if agent is connected to data source
     public boolean testConnection() {
         URL url;
         URLConnection conn = null;
@@ -121,7 +122,7 @@ public abstract class DataSourceAgent extends Agent{
                     proposition.setConversationId(UserInputAgent.PROPOSE_CONVERSATION_ID);
 
                     CfpQuery cfp = CFP.unmarshal(msg.getContent());
-                    Propose propose = RequestDataSource(cfp);
+                    Propose propose = requestDataSource(cfp);
                     proposition.setContent(propose.marshal());
 
                     myAgent.send(proposition);

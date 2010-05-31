@@ -7,7 +7,7 @@ public class GoogleScholarAgent extends DataSourceAgent {
     public static final String SERVICE_NAME = "Google Scholar";
 
     @Override
-    public Propose RequestDataSource(CfpQuery cfp) {
+    public Propose requestDataSource(CfpQuery cfp) {
         GoogleScholarQuery q = new GoogleScholarQuery(cfp);
         return q.perform();
     }

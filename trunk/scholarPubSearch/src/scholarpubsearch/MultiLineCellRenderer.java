@@ -5,9 +5,6 @@ import javax.swing.table.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-/**
- * @version 1.0 11/09/98
- */
 public class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
 
     public MultiLineCellRenderer() {

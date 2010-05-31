@@ -12,6 +12,7 @@ import messages.Publication;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+//Table model for fiew list of publications with check boxes
 public class PublicationListModel extends AbstractTableModel {
     private List<Publication> pubs;
     private String[] columnNames = {"","Title",

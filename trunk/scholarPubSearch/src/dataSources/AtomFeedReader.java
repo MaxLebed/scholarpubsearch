@@ -1,5 +1,6 @@
 package dataSources;
 
+import atom.ArxivResponse;
 import messages.JournalType;
 import messages.Propose;
 import messages.Publication;
@@ -14,20 +15,49 @@ import atom.IdType;
 import atom.LinkType;
 import atom.PersonType;
 import atom.TextType;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import javax.xml.bind.JAXBException;
 import scholarpubsearch.PublicationListModel;
 
-public class AtomFeedReader {
+public class AtomFeedReader extends DataSourceResponseParser{
 
     private FeedType feed;
     private Propose propose;
 
-    public AtomFeedReader(FeedType f) {
-        feed = f;
-        //request = new Request();
-        propose = new Propose();
+    @Override
+    public Propose parse(String href, int paperCount) throws IOException{
+        try {
+            String responseXML = request(href);
+            feed = ArxivResponse.unmarshal(responseXML);
+            propose = new Propose();
+            return readPublications();
+        }
+        catch (JAXBException je){
+            je.printStackTrace();
+        }
+        return null;
     }
 
-    public Propose buildPublications() {
+    //HTTP POST to arxiv.org
+    public String request(String href) throws IOException {
+         String responseXML = "";
+         URL url = new URL(href);
+         URLConnection conn = url.openConnection();
+         conn.setDoOutput(true);
+         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+         String line;
+         while ((line = reader.readLine()) != null) {
+             responseXML += line;
+         }
+         reader.close();
+         return responseXML;
+    }
+
+    public Propose readPublications() {
         if (feed != null) {
             List<Object> feedChilds = feed.getAuthorOrCategoryOrContributor();
             int ratingPosition = 0;
@@ -37,7 +67,7 @@ public class AtomFeedReader {
                     if (je.getName().getLocalPart().endsWith("entry")) {
                         ratingPosition++;
                         EntryType entry = (EntryType) je.getValue();
-                        buildPublication(entry, ratingPosition);
+                        readPublication(entry, ratingPosition);
                     }
                 }
             }
@@ -45,7 +75,7 @@ public class AtomFeedReader {
         return propose;
     }
 
-    private void buildPublication(EntryType entry, int ratingPosition) {
+    private void readPublication(EntryType entry, int ratingPosition) {
         Publication publn = new Publication();
         publn.setRatingPosition(ratingPosition);
         publn.setSource(ArxivOrgAgent.SERVICE_NAME);
@@ -53,43 +83,46 @@ public class AtomFeedReader {
             if (child.getClass() == JAXBElement.class) {
                 JAXBElement je = (JAXBElement) child;
                 String name = je.getName().getLocalPart();
+                //read Atom 1.0 <entry></entry> content
                 if (name.equals("id")) {
-                    buildId(publn, je);
+                    readId(publn, je);
                 }
                 if (name.equals("published")) {
-                    buildYear(publn, je);
+                    readYear(publn, je);
                 }
                 if (name.equals("title")) {
-                    buildTitle(publn, je);
+                    readTitle(publn, je);
                 }
                 if (name.equals("summary")) {
-                    buildSummary(publn, je);
+                    readSummary(publn, je);
                 }
                 if (name.equals("author")) {
-                    buildAuthor(publn, je);
+                    readAuthor(publn, je);
                 }
                 if (name.equals("link")) {
-                    buildFulltext(publn, je);
+                    readFulltext(publn, je);
                 }
                 if (name.equals("category")) {
-                    buildCategory(publn, je);
+                    readCategory(publn, je);
                 }
-            } else if (child.getClass() == ElementNSImpl.class) {
+            }
+            //arxiv.org special tags
+            else if (child.getClass() == ElementNSImpl.class) {
                 ElementNSImpl elem = (ElementNSImpl) child;
                 String name = elem.getLocalName();
                 if (name.equals("journal_ref")) {
-                    buildJournal(publn, elem);
+                    readJournal(publn, elem);
                 }
                 if (name.equals("comment")) {
-                    buildPagesCount(publn, elem);
+                    readPagesCount(publn, elem);
                 }
             }
         }
-        buildArticleBibtexString(publn);
+        generateBibtexString(publn);
         propose.addPublication(publn);
     }
-
-    private void buildJournal(Publication publn, ElementNSImpl elem) {
+    //read journal information from <arxiv:comment>
+    private void readJournal(Publication publn, ElementNSImpl elem) {
         JournalType journal = new JournalType();
         String[] jouralInfo = elem.getFirstChild().getTextContent().split(" |,");
         String name = "";
@@ -122,7 +155,7 @@ public class AtomFeedReader {
         publn.setJournal(journal);
     }
 
-    private void buildPagesCount(Publication publn, ElementNSImpl elem) {
+    private void readPagesCount(Publication publn, ElementNSImpl elem) {
         String comment = elem.getFirstChild().getTextContent();
         String[] commentElems = comment.split(" |,");
         for (int i = 1; i < commentElems.length; i++) {
@@ -137,7 +170,7 @@ public class AtomFeedReader {
         }
     }
 
-    private void buildFulltext(Publication publn, JAXBElement je) {
+    private void readFulltext(Publication publn, JAXBElement je) {
         LinkType fulltext = (LinkType) je.getValue();
         String title = fulltext.getTitle();
         if (title != null && fulltext.getTitle().equals("pdf")) {
@@ -145,27 +178,27 @@ public class AtomFeedReader {
         }
     }
 
-    private void buildCategory(Publication publn, JAXBElement je) {
+    private void readCategory(Publication publn, JAXBElement je) {
         CategoryType cat = (CategoryType) je.getValue();
         publn.setSubjectArea(cat.getTerm());
     }
 
-    private void buildSummary(Publication publn, JAXBElement je) {
+    private void readSummary(Publication publn, JAXBElement je) {
         TextType summ = (TextType) je.getValue();
         publn.setSummary(summ.getContent().get(0).toString().trim());
     }
 
-    private void buildTitle(Publication publn, JAXBElement je) {
+    private void readTitle(Publication publn, JAXBElement je) {
         TextType title = (TextType) je.getValue();
         publn.setTitle(title.getContent().get(0).toString());
     }
 
-    private void buildYear(Publication publn, JAXBElement je) {
+    private void readYear(Publication publn, JAXBElement je) {
         DateTimeType date = (DateTimeType) je.getValue();
         publn.setYear(date.getValue().getYear());
     }
 
-    private void buildAuthor(Publication publn, JAXBElement je) {
+    private void readAuthor(Publication publn, JAXBElement je) {
         PersonType value = (PersonType) je.getValue();
         messages.PersonType author =
                 new messages.PersonType();
@@ -189,12 +222,13 @@ public class AtomFeedReader {
         publn.setAuthorList(authors);
     }
 
-    private void buildId(Publication publn, JAXBElement je) {
+    private void readId(Publication publn, JAXBElement je) {
         IdType id = (IdType) je.getValue();
         publn.setId(id.getValue());
     }
 
-    private void buildArticleBibtexString(Publication publn) {
+    //generate BibTex record
+    public static void generateBibtexString(Publication publn) {
         String result = "@article{";
         result += generateBibtexRecordName(publn) + ",\n";
         if(publn.getTitle()!=null)
@@ -226,7 +260,8 @@ public class AtomFeedReader {
         result += "}";
         publn.setBibtex(result);
     }
-    private String generateBibtexRecordName(Publication publn) {
+    //generate unique name
+    private static String generateBibtexRecordName(Publication publn) {
         String name = "";
          if(publn.getAuthorList()!=null){
             messages.PersonType author = publn.getAuthorList().getAuthor().get(0);
@@ -247,11 +282,12 @@ public class AtomFeedReader {
             name += "arxivOrg" + String.valueOf(publn.getRatingPosition());
         return name.toLowerCase();
     }
-    private String getLetters(String s) {
+    //letter filter
+    private static String getLetters(String s) {
         char [] letters = s.toCharArray();
         for(int i = 0; i< letters.length; i++) {
             Character c = letters[i];
-            if (!c.isLetter(c))
+            if (!Character.isLetter(c))
                 letters [i] = ' ';
         }
         return new String(letters);

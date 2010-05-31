@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package scholarpubsearch;
 
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
- * @author Aleksandr Dzyuba
+    table model with combo boxes in cells
  */
 public class SearchPanelModel extends AbstractTableModel{
 
@@ -19,7 +13,7 @@ public class SearchPanelModel extends AbstractTableModel{
         {"Abstract", ""},
         {"Author", ""},
     };
-    
+    //const for formatting
     public static Object[] longValues =
         {"With fulltext link",
          "A vary long publication title A vary long publication title"};

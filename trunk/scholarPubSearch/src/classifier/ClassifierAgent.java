@@ -67,6 +67,7 @@ public class ClassifierAgent extends Agent {
     @Override
     protected void takeDown() {
         System.out.println(SERVICE_NAME + "Agent " + getAID().getName() + " is terminating.");
+        Util.DFDeregister(this);
     }
 
     private class DictionaryLoader extends OneShotBehaviour {
@@ -175,12 +176,6 @@ public class ClassifierAgent extends Agent {
                         }
                     }
                 }
-
-                @Override
-                protected void handleInform(ACLMessage inform) {
-                    //myAgent.addBehaviour(new SendUserRequest());
-                    //addBehaviour(new SendUserRequest());
-                }
             });
         }
     }
@@ -195,7 +190,7 @@ public class ClassifierAgent extends Agent {
 
         @Override
         public void action() {
-            //
+            
         }
 
         @Override

@@ -158,6 +158,7 @@ public class ScholarPubSearchView extends FrameView{
         arxivCheckBox = new javax.swing.JCheckBox();
         scholarCheckBox = new javax.swing.JCheckBox();
         Search = new javax.swing.JButton();
+        resultCountComboBox = new javax.swing.JComboBox();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -236,9 +237,9 @@ public class ScholarPubSearchView extends FrameView{
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +275,7 @@ public class ScholarPubSearchView extends FrameView{
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,42 +334,42 @@ public class ScholarPubSearchView extends FrameView{
             }
         });
 
+        resultCountComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "results...", "10", "15", "20", "25", "30", "40", "50", "100" }));
+        resultCountComboBox.setName("resultCountComboBox"); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(resultCountComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 87, Short.MAX_VALUE)
+                            .addComponent(arxivCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, 74, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, 74, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 74, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 74, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox5, 0, 74, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(arxivCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(5, 5, 5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(scholarCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(21, 21, 21))
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(Search)))
+                                .addComponent(scholarCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                .addGap(21, 21, 21)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -399,7 +400,9 @@ public class ScholarPubSearchView extends FrameView{
                     .addComponent(scholarCheckBox)
                     .addComponent(arxivCheckBox))
                 .addGap(18, 18, 18)
-                .addComponent(Search)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Search)
+                    .addComponent(resultCountComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(202, Short.MAX_VALUE))
         );
 
@@ -411,8 +414,8 @@ public class ScholarPubSearchView extends FrameView{
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,6 +578,7 @@ public class ScholarPubSearchView extends FrameView{
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
+    //start search query
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         CfpQuery cfpQuery = new CfpQuery();
         PublicationRequest request = new PublicationRequest();
@@ -583,6 +587,7 @@ public class ScholarPubSearchView extends FrameView{
         sendCfpToMyAgent(cfpQuery);
     }
 
+    //save publication in xml file
     private void savePublications(Publications pubs) {
         FileDialog saveFile = new FileDialog(ScholarPubSearchApp.getApplication().getMainFrame(), "Save file", FileDialog.SAVE);
         saveFile.setDirectory(defaultDirectory);
@@ -618,7 +623,7 @@ public class ScholarPubSearchView extends FrameView{
     }
 
     private void sendCfpToMyAgent(CfpQuery cfpQuery) {
-        GuiEvent ge = new GuiEvent(this, 0);
+        GuiEvent ge = new GuiEvent(this, UserInputAgent.CFP_EVENT);
         CFP cfp = new CFP();
         cfp.setCFPQuery(cfpQuery);
         ge.addParameter(cfp);
@@ -635,8 +640,8 @@ public class ScholarPubSearchView extends FrameView{
 	private void jTable1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTable1ComponentAdded
     }//GEN-LAST:event_jTable1ComponentAdded
 
+    //show selected publication in jTable2
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        //show selected publication in jTable2
         int selectedRow = jTable1.getSelectedRow();
         PublicationListModel model = (PublicationListModel) jTable1.getModel();
         Publication selectedPublication = model.getPublication(selectedRow);
@@ -666,6 +671,7 @@ public class ScholarPubSearchView extends FrameView{
 
     }//GEN-LAST:event_jTable1CaretPositionChanged
 
+    //open file with saved publications
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         FileDialog openFile = new FileDialog(
                 ScholarPubSearchApp.getApplication().getMainFrame());
@@ -785,6 +791,7 @@ public class ScholarPubSearchView extends FrameView{
 
     }//GEN-LAST:event_mainPanelComponentRemoved
 
+    //show list of publication on main form
     public void setPublications(Publications p) {
         PublicationListModel model = (PublicationListModel) jTable1.getModel();
         if(p!= null && p.getPublication()!=null)
@@ -795,6 +802,7 @@ public class ScholarPubSearchView extends FrameView{
         setUpValueColumn(jTable1,4);
     }
 
+    //add list of publication on main form
     public void addPublications(Publications p) {
         PublicationListModel model = (PublicationListModel) jTable1.getModel();
         List<Publication> merged = model.getPublications();
@@ -808,7 +816,8 @@ public class ScholarPubSearchView extends FrameView{
         setUpValueColumn(jTable1,2);
         setUpValueColumn(jTable1,4);
     }
-    
+
+    //construct CFP request from main form
     private void fillRequestFields(PublicationRequest request) {
         for (int i = 0; i < comboBoxes.size(); i++) {
             javax.swing.JComboBox comboBox = comboBoxes.get(i);
@@ -818,7 +827,8 @@ public class ScholarPubSearchView extends FrameView{
             SearchForm.addRequestField(request, field, value);
         }
     }
-
+    
+    //construct CFP request from main form
     private void fillCfpQueryFields(CfpQuery cfpQuery, PublicationRequest request) {
         StringAttributeList sources = new StringAttributeList();
         if (arxivCheckBox.isSelected()) {
@@ -829,7 +839,13 @@ public class ScholarPubSearchView extends FrameView{
         }
         cfpQuery.setSourceList(sources);
         cfpQuery.setPublicationRequest(request);
-        cfpQuery.setResultsNumber(DEFAULT_RES_NUMBER);
+        //#publications
+        int resultsCount = DEFAULT_RES_NUMBER;
+        if(resultCountComboBox.getSelectedIndex() > 0)
+            resultsCount = Integer.decode(
+                resultCountComboBox.getSelectedItem().toString());
+        cfpQuery.setResultsNumber(resultsCount);
+        
     }
 
     private void invokeSearchForm() {
@@ -882,6 +898,7 @@ public class ScholarPubSearchView extends FrameView{
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JComboBox resultCountComboBox;
     private javax.swing.JCheckBox scholarCheckBox;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
