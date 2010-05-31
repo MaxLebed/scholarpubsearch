@@ -24,26 +24,15 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-public class GoogleScholarParser {
+public class GoogleScholarParser extends DataSourceResponseParser{
 
     public static final String encoding = "ISO-8859-1";
     public static int paperCount;
 
-    public static Propose parse(String href, int resultsCount) throws IOException {
-        /*conn.setRequestProperty("Cookie", "GSP=ID=21c7a62c98ac6c89:IN=78b3896d5538486c:CF=4");
-        conn.addRequestProperty("teivltao", "Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11 (.NET CLR 3.5.30729)");*/
+    public Propose parse(String href, int resultsCount) throws IOException {
         paperCount = resultsCount;
-        HttpClient client = new HttpClient();
-        GetMethod method = new GetMethod(href);
-        method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-        //method.setRequestHeader("Cookie", "PREF=ID=c2dbdcf31a660dca:U=522b899d5e4c10a3:LD=en:NR=10:TM=1249930482:LM=1257984277:S=WSlEK41z20sP9d7y; NID=26=gZ45dJbuLvfQR8X_sv5dCN6D-k_MdovJpsa4dNrpAry0IVBZlbaj83zWVucXnbc-Xv3gGGLLF6EKm2f70CDWOWHH0bTBT0qR_85ZLNB339oeHtQz6Oawh_VrGhg23F1d; GSP=ID=c2dbdcf31a660dca:IN=15ea0d06b0148432:CF=4");
-        method.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
-        method.setRequestHeader("Cookie", "GSP=ID=88aada13e3ed1b7d:IN=78b3896d5538486c:CF=4:DT=1");
         try {
-            int statusCode = client.executeMethod(method);
-            if (statusCode != HttpStatus.SC_OK) {
-                System.err.println("Method failed: " + method.getStatusLine());
-            }
+            GetMethod method = method = request(href);
             ParserGetter getter = new ParserGetter();
             HTMLEditorKit.Parser parser = getter.getParser();
             InputStream in = method.getResponseBodyAsStream();
@@ -55,22 +44,37 @@ public class GoogleScholarParser {
             Publications pubs = readBibtex(callback);
             Propose propose = new Propose();
             propose.setPublications(pubs);
+            method.releaseConnection();
             return propose;
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Fatal: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            method.releaseConnection();
         }
         return null;
     }
 
+    //create HTTPClient and request to Google Scholar with cookie
+    public GetMethod request(String href) throws IOException{
+        HttpClient client = new HttpClient();
+        GetMethod method = new GetMethod(href);
+        method.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
+        method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
+        method.setRequestHeader("Cookie", "GSP=ID=88aada13e3ed1b7d:IN=78b3896d5538486c:CF=4:DT=1");
+        int statusCode = client.executeMethod(method);
+        if (statusCode != HttpStatus.SC_OK) {
+            System.err.println("Method failed: " + method.getStatusLine());
+        }
+        return method;
+    }
+
+    //Special GoogleScholar feature
     public static String getBibtexLink(String hash) {
         return "http://scholar.google.com/scholar.bib?q=info:" + hash
                 + ":scholar.google.com/&output=citation&hl=en&as_sdt=2000&ct=citation&cd=0";
     }
 
-    private static Publications readBibtex(Outliner otl) throws IOException {
+    //Read paper attributes from BibTex record
+    private Publications readBibtex(Outliner otl) throws IOException {
         String[] hashList = otl.getHashList();
         String[] paperList = otl.getPaperList();
         String[] fulltextList = otl.getFulltextList();
@@ -79,17 +83,10 @@ public class GoogleScholarParser {
         for (int i = 0; i < hashList.length; i++) {
             String hash = hashList[i];
             if (hash != null) {
-                HttpClient client = new HttpClient();
                 String bibtexLink = getBibtexLink(hash);
-                GetMethod method = new GetMethod(bibtexLink);
                 try {
-                    method.getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
-                    method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-                    method.setRequestHeader("Cookie", "GSP=ID=88aada13e3ed1b7d:IN=78b3896d5538486c:CF=4:DT=1");
-                    int statusCode = client.executeMethod(method);
-                    if (statusCode != HttpStatus.SC_OK) {
-                        System.err.println("Method failed: " + method.getStatusLine());
-                    }
+                    GetMethod method = request(bibtexLink);
+                    //read attributes from Google HTML page and BibTex-record
                     String responseBibtex = "";
                     BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream()));
                     String line;
@@ -100,12 +97,12 @@ public class GoogleScholarParser {
                         responseBibtex += line;
                         readBibtexLine(line, p);
                     }
-                    p.setBibtex(responseBibtex);
+                    //p.setBibtex(responseBibtex);
                     p.setFulltext(fulltextList[i]);
                     p.setId(paperList[i]);
                     p.setSource(GoogleScholarAgent.SERVICE_NAME);
                     p.setRatingPosition(i);
-
+                    AtomFeedReader.generateBibtexString(p);
                     publicationList.add(p);
                     reader.close();
                 } catch (Exception e) {
@@ -117,6 +114,7 @@ public class GoogleScholarParser {
         return pubs;
     }
 
+    //read one line (one attribute of a publication)
     public static void readBibtexLine(String line, Publication p) {
         String cutComma = line;
         if (cutComma.endsWith(",")) {

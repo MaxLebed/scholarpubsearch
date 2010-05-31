@@ -1,37 +1,30 @@
 package dataSources;
 
 import messages.CfpQuery;
-import messages.PublicationRequest;
 import messages.StringAttributeList;
-import java.io.IOException;
-import messages.Propose;
 
-public class GoogleScholarQuery {
+public class GoogleScholarQuery extends DataSourceQuery{
     public static final String DEFAULT_HREF =
             "http://scholar.google.com/scholar?";
-    private CfpQuery cfp;
-    private PublicationRequest request;
-    public String href;
+    //Google Scholar query language
+    private static final String KEYWORD = "q=";
+    private static final String AUTHOR = "+author%3A";
+    private static final String JOURNAL = "&as_publication=";
+    private static final String SUBJECT = "&as_subj=";
+    private static final String FROM_YEAR = "&as_ylo=";
+    private static final String TO_YEAR = "&as_yhi=";
+    private static final String PAPERS_COUNT = "&num=";
+    private static final String AT_LEAST_SUMMARIES = "&as_vis=1";
 
     public GoogleScholarQuery(CfpQuery c) {
         cfp = c;
         request = cfp.getPublicationRequest();
         href = DEFAULT_HREF;
+        parser = new GoogleScholarParser();
     }
 
-    public Propose perform() {
-        getHref();
-        try {
-            GoogleScholarParser p = new GoogleScholarParser();
-            return GoogleScholarParser.parse(href, cfp.getResultsNumber());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void getHref() {
+    @Override
+    public void calculateHref() {
         addKeywords();
         addAuthors();
         addJournal();
@@ -44,7 +37,7 @@ public class GoogleScholarQuery {
 
     private void addKeywords() {
         StringAttributeList keywords = request.getTitleKeywordList();
-        href += "q=";
+        href += KEYWORD;
         if(keywords != null) {
             for(String keyword : keywords.getAttribute()) {
                 href += "+" + normalize(keyword,'+');
@@ -62,7 +55,7 @@ public class GoogleScholarQuery {
         StringAttributeList authors = request.getAuthorList();
         if(authors != null) {
             for(String author : authors.getAttribute()) {
-                href += "+author%3A" + normalize(author,'+');
+                href += AUTHOR + normalize(author,'+');
             }
         }
     }
@@ -70,35 +63,35 @@ public class GoogleScholarQuery {
     private void addJournal() {
         String journalName = request.getJournalName();
         if(journalName != null) {
-            href += "&as_publication=" + normalize(journalName,'+');
+            href += JOURNAL + normalize(journalName,'+');
         }
     }
 
     private void addSubject() {
         String subjArea = request.getSubjectArea();
         if(subjArea != null) {
-            href += "&as_subj=" + normalize(subjArea,'+');
+            href += SUBJECT + normalize(subjArea,'+');
         }
     }
 
     private void addFromYear() {
         Integer fromYear =request.getFromYear();
         if(fromYear != null) {
-            href += "&as_ylo=" + fromYear.toString();
+            href += FROM_YEAR + fromYear.toString();
         }
     }
 
     private void addToYear() {
         Integer toYear =request.getToYear();
         if(toYear != null) {
-            href += "&as_yhi=" + toYear.toString();
+            href += TO_YEAR + toYear.toString();
         }
     }
 
     private void addPapersCont() {
         Integer count =cfp.getResultsNumber();
         if(count != null && count != 0) {
-            href += "&num=" + count.toString();
+            href += PAPERS_COUNT + count.toString();
         }
     }
 
@@ -115,6 +108,6 @@ public class GoogleScholarQuery {
     }
 
     private void addAtLeastSummaries() {
-        href += "&as_vis=1";
+        href += AT_LEAST_SUMMARIES;
     }
 }

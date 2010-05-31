@@ -136,6 +136,7 @@ public class Preference {
         userPreference.setSites(sitesRating);
     }
 
+    //change preferences depends on CFP message
     public void change(CfpQuery cfp) {
         PublicationRequest pr = cfp.getPublicationRequest();
         String subject = pr.getSubjectArea();
@@ -148,6 +149,7 @@ public class Preference {
         }
     }
 
+    //change preferences depends on Inform message
     public void change(InformMessage inform, Publications pubs) {
         if (pubs != null && inform != null) {
             List<Publication> publications = pubs.getPublication();
@@ -165,12 +167,13 @@ public class Preference {
                             changeAuthor(author.getName(), INFORM_BONUS);
                         }
                     }
-                    //site
+                    //TODO in future: change site
                 }
             }
         }
     }
 
+    //sort all publications
     public void range(Publications ps, int resultsCount) {
         List<Publication> publications = ps.getPublication();
         List<Pair> pubRanking = new ArrayList<Pair>();
@@ -198,8 +201,7 @@ public class Preference {
                 }
             }
             rank += authorsRank;
-            //add for sites rating
-            //TODO связать с i(нормально а не i*1)
+            //TODO : add for sites rating
             pubRanking.add(new Pair(publication, rank));
         }
         Collections.sort(pubRanking, new Comparator<Pair>() {
@@ -215,21 +217,12 @@ public class Preference {
             publications.add(p.pub);
         }
         if(resultsCount < publications.size())
-            ps.setPublication(publications.subList(0, resultsCount-1));
+            ps.setPublication(publications.subList(0, resultsCount));
         else
             ps.setPublication(publications);
     }
 
-    public void supplementCFP(CfpQuery cfp) {
-        //PublicationRequest pr = cfp.getPublicationRequest();
-        //String subj = pr.getSubjectArea();
-        //String defaultSubj = userPreference.getDefaultSubject();
-        //if (subj == null && defaultSubj != null) {
-        //    pr.setSubjectArea(userPreference.getDefaultSubject());
-        //    cfp.setPublicationRequest(pr);
-        //}
-    }
-
+    //change rating of journal
     private void changeJournal(String jnl, int bonus) {
         if (jnl!= null) {
             String journal = jnl.toLowerCase();
@@ -253,6 +246,7 @@ public class Preference {
         }
     }
 
+    //change rating of author
     private void changeAuthor(String athr, int bonus) {
         if (athr != null) {
             String author = athr.toLowerCase();
@@ -276,7 +270,7 @@ public class Preference {
             }
         }
     }
-
+    //change rating of subject area
     private void changeSubject(String sbjt, int bonus) {
         if (sbjt != null) {
             String subject = sbjt.toLowerCase();
@@ -323,6 +317,7 @@ public class Preference {
         return jel.getValue();
     }
 
+    //for sort by rating
     private class Pair {
 
         public Publication pub;

@@ -22,4 +22,12 @@ public class Util {
             fe.printStackTrace();
         }
     }
+    public static void DFDeregister(Agent a)
+    {
+        try {
+            DFService.deregister(a);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+    }
 }

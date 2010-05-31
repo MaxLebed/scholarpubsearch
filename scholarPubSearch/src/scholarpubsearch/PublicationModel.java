@@ -3,6 +3,7 @@ package scholarpubsearch;
 import messages.Publication;
 import javax.swing.table.AbstractTableModel;
 
+//Table model for view all attributes  of publication
 public class PublicationModel extends AbstractTableModel {
 
     private String[] columnNames = {"Field", "Content"};

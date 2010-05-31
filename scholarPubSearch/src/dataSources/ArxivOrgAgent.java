@@ -2,18 +2,15 @@ package dataSources;
 
 import messages.CfpQuery;
 import messages.Propose;
-import atom.FeedType;
 
 public class ArxivOrgAgent extends DataSourceAgent {
 
     public static final String SERVICE_NAME = "ArxivOrg";
 
     @Override
-    public Propose RequestDataSource(CfpQuery cfp) {
+    public Propose requestDataSource(CfpQuery cfp) {
         ArxivOrgQuery q = new ArxivOrgQuery(cfp);
-        FeedType ft = q.perform();
-        AtomFeedReader reader = new AtomFeedReader(ft);
-        return reader.buildPublications();
+        return q.perform();
     }
 
     @Override

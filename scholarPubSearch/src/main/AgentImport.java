@@ -10,8 +10,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
 
 /**
- *
- * @author Dzuba Alexandr
+    Import agents from config-file
  */
 public class AgentImport {
     private final static String INPUT_AGENT_TAG = "input";
@@ -45,8 +44,6 @@ public class AgentImport {
         private String gs;
         private String uiPref;
         private String uiFile;
-        //private boolean description = false;
-        //private ArrayList<Good> catalogue;
 
         public void parse(String uri) {
             try {

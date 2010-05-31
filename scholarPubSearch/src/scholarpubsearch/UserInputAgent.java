@@ -1,7 +1,5 @@
 package scholarpubsearch;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import preferences.UserPreferenceAgent;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
@@ -29,8 +27,6 @@ import jade.wrapper.StaleProxyException;
 import java.io.File;
 import java.io.FileOutputStream;
 import javax.xml.bind.JAXBException;
-import preferences.Preference;
-import preferences.UserPreference;
 
 public class UserInputAgent extends GuiAgent {
 
@@ -40,6 +36,11 @@ public class UserInputAgent extends GuiAgent {
     public static final String INFORM_CONVERSATION_ID= "inform";
     public static final String CFP_CONVERSATION_ID= "cfp";
     public static final String PROPOSE_CONVERSATION_ID = "propose";
+    //GUI Events
+    public static final int CFP_EVENT = 0;
+    public static final int INFORM_EVENT = 1;
+    public static final int CLOSING_EVENT = 2;
+
 
     private AID userPreferenceAgent;
     private String preferenceURI;
@@ -66,19 +67,20 @@ public class UserInputAgent extends GuiAgent {
     @Override
     protected void takeDown() {
         System.out.println(SERVICE_NAME + "Agent " + getAID().getName() + " is terminating.");
+        Util.DFDeregister(this);
     }
 
     @Override
     protected void onGuiEvent(GuiEvent ge) {
-        if (ge.getType() == 0) {
+        if (ge.getType() == CFP_EVENT) {
             currentCfp = (CFP) ge.getParameter(0);
             addBehaviour(new CFPBehaviour());
         }
-        if (ge.getType() == 1) {
+        if (ge.getType() == INFORM_EVENT) {
             currentInform = (Inform) ge.getParameter(0);
             addBehaviour(new InformBehaviour());
         }
-        if(ge.getType() == 2) {
+        if(ge.getType() == CLOSING_EVENT) {
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
             msg.addReceiver(userPreferenceAgent);
             msg.setConversationId(PREFERENCE_CONVERSATION_ID);
@@ -259,7 +261,7 @@ public class UserInputAgent extends GuiAgent {
             return proposeRecieved;
         }
     }
-
+    //recieve preferences from UPA after closing serch window
     private class RecievePreferences extends Behaviour {
         boolean recieved = false;
 
@@ -273,6 +275,7 @@ public class UserInputAgent extends GuiAgent {
             if (msg != null) {
                 recieved = true;
             try {
+                //write preferences in file
                 FileOutputStream outFile;
                 File f = new File(preferenceURI);
                 if (!f.exists()) {

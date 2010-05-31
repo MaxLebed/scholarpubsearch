@@ -7,14 +7,15 @@ import jade.wrapper.ControllerException;
 import jade.wrapper.StaleProxyException;
 
 public class Main {
-
+    private static final String DEFAULT_CONFIG_LOCATION =
+            "examples\\config.xml";
     AgentContainer mainContainer;
 
     public static void main(String[] args) {
         if(args.length > 0)
             configAgents(args[0]);
         else
-            configAgents("examples\\config.xml");
+            configAgents(DEFAULT_CONFIG_LOCATION);
     }
 
     private static void configAgents(String path)
@@ -57,6 +58,7 @@ public class Main {
                 ac.createNewAgent(ui, scholarpubsearch.UserInputAgent.class.getName(), arg);
                 ac.getAgent(ui).start();
             }
+            //tool for system management
             ac.createNewAgent("rma", jade.tools.rma.rma.class.getName(), new Object[0]);
             ac.getAgent("rma").start();
         }

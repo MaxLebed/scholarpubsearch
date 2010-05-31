@@ -252,8 +252,9 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //start new search
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GuiEvent ge = new GuiEvent(this, 0);
+        GuiEvent ge = new GuiEvent(this, UserInputAgent.CFP_EVENT);
         CfpQuery cfpQuery = new CfpQuery();
         PublicationRequest request = new PublicationRequest();
         //read user request from controls
@@ -285,6 +286,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         myAgent.postGuiEvent(ge);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //add field to search request
     public static void addRequestField(PublicationRequest request, String field,
             String value) {
         if (value == null || value.trim().equals("")) {
@@ -352,7 +354,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
     }
 
     private void sendSelectedToMyAgent(ArrayList<String> publicationIds) {
-        GuiEvent ge = new GuiEvent(this, 1);
+        GuiEvent ge = new GuiEvent(this, UserInputAgent.INFORM_EVENT);
         InformMessage infMsg = new InformMessage();
         infMsg.setPublicationId(publicationIds);
         Inform inform = new Inform();
@@ -361,6 +363,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         myAgent.postGuiEvent(ge);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //select/deselect
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.getSelectedColumn() == 0) {
             Boolean selected =
@@ -370,6 +373,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    //send preference to preference agent from UserInputAgent
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         PublicationListModel model = (PublicationListModel) jTable1.getModel();
         Publications pubs = new Publications();
@@ -381,7 +385,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         }
         myAgent.getMainFrame().addPublications(pubs);
         //send selected publications to myAgent
-        GuiEvent ge = new GuiEvent(this, 1);
+        GuiEvent ge = new GuiEvent(this, UserInputAgent.INFORM_EVENT);
         InformMessage infMsg = new InformMessage();
         infMsg.setPublicationId(publicationIds);
         Inform inform = new Inform();
@@ -410,6 +414,7 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
         column.setCellRenderer(renderer);
     }
 
+    //show publications on search form
     public void setPublications(Publications p) {
         PublicationListModel model = (PublicationListModel) jTable1.getModel();
         if (p != null && p.getPublication() != null) {
@@ -466,33 +471,33 @@ public class SearchForm extends javax.swing.JFrame implements WindowListener{
 
         }
     }
-
-    public void windowOpened(WindowEvent e) {
-       
-    }
-
+    //after this event UserPreferenceAgent sends preferences to UserInputAgent
     public void windowClosing(WindowEvent e) {
-        GuiEvent ge = new GuiEvent(this, 2);
+        GuiEvent ge = new GuiEvent(this, UserInputAgent.CLOSING_EVENT);
         myAgent.postGuiEvent(ge);
     }
 
-    public void windowClosed(WindowEvent e) {
+    public void windowOpened(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+    public void windowClosed(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void windowIconified(WindowEvent e) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void windowDeiconified(WindowEvent e) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void windowActivated(WindowEvent e) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void windowDeactivated(WindowEvent e) {
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
