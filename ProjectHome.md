@@ -1,0 +1,1 @@
+The aim of the project is to create a multi-agent system for publication search in many sources.
